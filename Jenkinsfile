@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Conexion Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '7cf31f98-dca5-495e-ab64-7cc2525e8c6e', url: 'https://github.com/Yazmin66/Choucair-Test.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '7cf31f98-dca5-495e-ab64-7cc2525e8c6e', url: 'https://github.com/Yazmin66/Choucair-testing.git']]])
             }
         }
 
