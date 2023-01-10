@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Conexion Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '7cf31f98-dca5-495e-ab64-7cc2525e8c6e', url: 'https://github.com/Yazmin66/Choucair-testing.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '7cf31f98-dca5-495e-ab64-7cc2525e8c6e', url: 'https://github.com/Yazmin66/Choucair-Test.git']]])
             }
         }
 
@@ -36,7 +36,7 @@ pipeline {
         stage('Generar Evidencias') {
             steps {
                 script {
-                  
+                    try {
                         bat " rename \"${WORKSPACE}\\target\" serenity_${tiempo}"
 
                         publishHTML([allowMissing         : false,
@@ -47,7 +47,16 @@ pipeline {
                                      reportName           : 'Test Demo serenity evidencias ',
                                      reportTitles         : 'Serenity demo Proyecto'])
                         echo 'Reporte generado exitosamente'
-                    
+                    } catch (e) {
+                        publishHTML([allowMissing         : false,
+                                     alwaysLinkToLastBuild: true,
+                                     keepAll              : true,
+                                     reportDir            : "${WORKSPACE}//target/serenity_${tiempo}",
+                                     reportFiles          : 'index.html',
+                                     reportName           : 'Test Demo serenity evidencias ',
+                                     reportTitles         : 'Serenity demo Proyecto'])
+                        echo 'Reporte generado exitosamente'
+                    }
                 }
             }
         }
