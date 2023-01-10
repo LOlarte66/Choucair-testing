@@ -36,7 +36,7 @@ pipeline {
         stage('Generar Evidencias') {
             steps {
                 script {
-                    try {
+                  
                         bat " rename \"${WORKSPACE}\\target\" serenity_${tiempo}"
 
                         publishHTML([allowMissing         : false,
@@ -47,16 +47,7 @@ pipeline {
                                      reportName           : 'Test Demo serenity evidencias ',
                                      reportTitles         : 'Serenity demo Proyecto'])
                         echo 'Reporte generado exitosamente'
-                    } catch (e) {
-                        publishHTML([allowMissing         : false,
-                                     alwaysLinkToLastBuild: true,
-                                     keepAll              : true,
-                                     reportDir            : "${WORKSPACE}//target/serenity_${tiempo}",
-                                     reportFiles          : 'index.html',
-                                     reportName           : 'Test Demo serenity evidencias ',
-                                     reportTitles         : 'Serenity demo Proyecto'])
-                        echo 'Reporte generado exitosamente'
-                    }
+                    
                 }
             }
         }
